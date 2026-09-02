@@ -1,0 +1,14 @@
+.env
+.idea/
+.vscode/
+*.iml
+
+# gradle / java
+.gradle/
+build/
+bin/
+*.class
+
+# node
+node_modules/
+dist/

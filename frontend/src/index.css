@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+@plugin "daisyui" {
+  themes: false;
+}
+
+/*
+ * 미니멀 뉴트럴 팔레트.
+ *  - 배경과 카드가 같은 색이고, 구분은 1px 보더로만 한다 (--depth: 0 으로 그림자 제거).
+ *  - primary 는 채도 있는 색이 아니라 거의 검정(다크에서는 거의 흰색)이다. 버튼 하나만 눈에 띄게 하려는 것.
+ *  - 링크·정보성 강조는 accent(차분한 파랑)를 쓴다. primary 를 링크에 쓰면 본문과 구분이 안 된다.
+ */
+@plugin "daisyui/theme" {
+  name: "simpleboard";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97.5% 0 0);
+  --color-base-300: oklch(91% 0 0);
+  --color-base-content: oklch(25% 0.005 285);
+
+  --color-primary: oklch(25% 0.005 285);
+  --color-primary-content: oklch(99% 0 0);
+  --color-secondary: oklch(55% 0.015 285);
+  --color-secondary-content: oklch(99% 0 0);
+  --color-accent: oklch(55% 0.14 250);
+  --color-accent-content: oklch(99% 0 0);
+  --color-neutral: oklch(25% 0.005 285);
+  --color-neutral-content: oklch(97% 0 0);
+
+  --color-info: oklch(60% 0.11 240);
+  --color-info-content: oklch(99% 0 0);
+  --color-success: oklch(58% 0.12 155);
+  --color-success-content: oklch(99% 0 0);
+  --color-warning: oklch(70% 0.14 75);
+  --color-warning-content: oklch(20% 0.02 75);
+  --color-error: oklch(57% 0.19 25);
+  --color-error-content: oklch(99% 0 0);
+
+  --radius-selector: 0.375rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "simpleboard-dark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: oklch(17.5% 0.004 285);
+  --color-base-200: oklch(21% 0.004 285);
+  --color-base-300: oklch(28% 0.005 285);
+  --color-base-content: oklch(92% 0.002 285);
+
+  --color-primary: oklch(92% 0.002 285);
+  --color-primary-content: oklch(17.5% 0.004 285);
+  --color-secondary: oklch(70% 0.015 285);
+  --color-secondary-content: oklch(17.5% 0.004 285);
+  --color-accent: oklch(70% 0.13 250);
+  --color-accent-content: oklch(17.5% 0.004 285);
+  --color-neutral: oklch(24% 0.005 285);
+  --color-neutral-content: oklch(92% 0.002 285);
+
+  --color-info: oklch(70% 0.11 240);
+  --color-info-content: oklch(17.5% 0.004 285);
+  --color-success: oklch(70% 0.12 155);
+  --color-success-content: oklch(17.5% 0.004 285);
+  --color-warning: oklch(78% 0.13 75);
+  --color-warning-content: oklch(17.5% 0.004 285);
+  --color-error: oklch(68% 0.17 25);
+  --color-error-content: oklch(17.5% 0.004 285);
+
+  --radius-selector: 0.375rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme {
+  --font-sans:
+    "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+    "Segoe UI", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+
+@layer base {
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    /* 배경과 카드가 같은 색. 구분은 보더가 한다. */
+    @apply bg-base-100 text-base-content;
+    font-feature-settings: "ss01", "tnum";
+    letter-spacing: -0.01em;
+  }
+
+  /* 한글은 기본 행간이 좁으면 뭉쳐 보인다. */
+  p,
+  li,
+  td {
+    line-height: 1.65;
+  }
+
+  h1,
+  h2,
+  h3 {
+    letter-spacing: -0.02em;
+  }
+}
+
+/* CKEditor 는 자체 라이트 팔레트를 갖고 있어 다크 테마에서 흰 판으로 남는다.
+   색 변수만 daisyUI 토큰에 연결해 두 테마 모두에서 맞게 한다. */
+.ck-editor-shell {
+  --ck-color-base-background: var(--color-base-100);
+  --ck-color-base-foreground: var(--color-base-200);
+  --ck-color-base-border: var(--color-base-300);
+  --ck-color-text: var(--color-base-content);
+  --ck-color-toolbar-background: var(--color-base-200);
+  --ck-color-toolbar-border: var(--color-base-300);
+  --ck-color-button-default-hover-background: var(--color-base-300);
+  --ck-color-button-on-background: var(--color-base-300);
+  --ck-color-button-on-hover-background: var(--color-base-300);
+  --ck-color-panel-background: var(--color-base-100);
+  --ck-color-panel-border: var(--color-base-300);
+  --ck-color-dropdown-panel-background: var(--color-base-100);
+  --ck-color-dropdown-panel-border: var(--color-base-300);
+  --ck-color-list-background: var(--color-base-100);
+  --ck-color-list-button-hover-background: var(--color-base-200);
+  --ck-color-input-background: var(--color-base-100);
+  --ck-color-input-border: var(--color-base-300);
+  --ck-color-input-text: var(--color-base-content);
+}
+
+/* 기본 편집 영역이 두어 줄 높이라 글을 쓰기 어렵다. */
+.ck-editor-shell .ck-editor__editable_inline {
+  min-height: 22rem;
+}
+
+/* 게시글 본문은 서버가 내려준 HTML 을 그대로 렌더링한다.
+   Tailwind preflight 가 지워버린 기본 서식을 이 블록 안에서만 되살린다. */
+@layer components {
+  .post-content :where(h1) {
+    @apply text-2xl font-bold my-4;
+  }
+  .post-content :where(h2) {
+    @apply text-xl font-bold my-4;
+  }
+  .post-content :where(h3) {
+    @apply text-lg font-bold my-3;
+  }
+  .post-content :where(p) {
+    @apply my-3;
+  }
+  .post-content :where(ul) {
+    @apply list-disc pl-6 my-3;
+  }
+  .post-content :where(ol) {
+    @apply list-decimal pl-6 my-3;
+  }
+  .post-content :where(a) {
+    @apply link link-accent;
+  }
+  .post-content :where(blockquote) {
+    @apply border-l-2 border-base-300 pl-4 italic my-4 text-base-content/70;
+  }
+  .post-content :where(img) {
+    @apply max-w-full rounded-box;
+  }
+}
